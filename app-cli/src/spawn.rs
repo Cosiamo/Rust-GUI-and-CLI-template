@@ -5,7 +5,7 @@ pub fn spawn_gui(args: Vec<String>) -> io::Result<ExitStatus> {
 
     if cfg!(target_os = "windows") {
         program = "app-gui.exe";
-    } else if cfg!(target_os = "linux") {
+    } else if cfg!(target_os = "linux") || cfg!(target_os = "macos") {
         program = "app-gui";
     } else {
         eprintln!("This app is not supported on your Operating System.");
