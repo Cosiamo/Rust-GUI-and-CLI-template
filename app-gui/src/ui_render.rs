@@ -7,8 +7,6 @@ slint::include_modules!();
 pub fn render_ui() -> Result<(), Box<dyn Error>> {
     let ui = AppWindow::new()?;
 
-    println!("testing attr");
-
     ui.on_request_increase_value({
         let ui_handle = ui.as_weak();
         move || {
