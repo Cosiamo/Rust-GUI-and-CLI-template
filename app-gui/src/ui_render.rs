@@ -23,6 +23,14 @@ pub fn render_ui() -> Result<(), Box<dyn Error>> {
                     let result = match op.as_str() {
                         "+" => equations::add(a, b),
                         "−" | "-" => equations::subtract(a, b),
+                        "×" | "*" => equations::multiply(a, b),
+                        "÷" | "/" => {
+                            if b == 0.0 {
+                                ui.set_result("Cannot divide by zero".into());
+                                return;
+                            }
+                            equations::divide(a, b)
+                        }
                         _ => {
                             ui.set_result("Unknown op".into());
                             return;

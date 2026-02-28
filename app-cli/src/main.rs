@@ -16,11 +16,19 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         match commands.cmd {
             Subcommands::Add(add) => {
-                let res = app_core::equations::add(add.left_number, add.right_number);
+                let res = app_core::equations::add(add.number_a, add.number_b);
                 println!("{}", res);
             }
             Subcommands::Subtract(sub) => {
-                let res = app_core::equations::subtract(sub.left_number, sub.right_number);
+                let res = app_core::equations::subtract(sub.number_a, sub.number_b);
+                println!("{}", res);
+            }
+            Subcommands::Multiply(args) => {
+                let res = app_core::equations::multiply(args.number_a, args.number_b);
+                println!("{}", res);
+            }
+            Subcommands::Divide(args) => {
+                let res = app_core::equations::divide(args.number_a, args.number_b);
                 println!("{}", res);
             }
         }
