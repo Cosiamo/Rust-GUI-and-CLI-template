@@ -17,8 +17,8 @@ pub enum Subcommands {
 
 #[derive(Parser, Debug)]
 pub struct Args {
-    #[arg(short = 'l', long = "left")]
-    pub left_number: u64,
-    #[arg(short = 'r', long = "right")]
-    pub right_number: u64,
+    #[arg(short = 'a', long = "left")]
+    pub left_number: f64,
+    #[arg(short = 'b', long = "right")]
+    pub right_number: f64,
 }

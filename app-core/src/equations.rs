@@ -1,7 +1,7 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+pub fn add(a: f64, b: f64) -> f64 {
+    a + b
 }
 
-pub fn subtract(left: u64, right: u64) -> u64 {
-    left - right
+pub fn subtract(a: f64, b: f64) -> f64 {
+    a - b
 }
