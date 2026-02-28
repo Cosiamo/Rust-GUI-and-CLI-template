@@ -11,7 +11,9 @@ pub mod spawn;
 fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = std::env::args().collect();
 
-    if args.len() > 1 {
+    let should_spawn_gui = args.len() <= 1 || (args.len() == 2 && args[1] == ".");
+
+    if !should_spawn_gui {
         let commands = Commands::parse();
 
         let (op, a, b): (fn(f64, f64) -> f64, _, _) = match &commands.cmd {

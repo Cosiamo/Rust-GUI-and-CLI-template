@@ -1,17 +1,18 @@
-use std::{io, process::ExitStatus};
+use std::{io, path::PathBuf, process::ExitStatus};
 
 pub fn spawn_gui(args: Vec<String>) -> io::Result<ExitStatus> {
-    let program: &str;
+    let exe_dir: PathBuf = std::env::current_exe()?
+        .parent()
+        .expect("executable should have a parent directory")
+        .to_path_buf();
 
-    if cfg!(target_os = "windows") {
-        program = "app-gui.exe";
-    } else if cfg!(target_os = "linux") || cfg!(target_os = "macos") {
-        program = "app-gui";
+    let program = if cfg!(target_os = "windows") {
+        exe_dir.join("app-gui.exe")
     } else {
-        eprintln!("This app is not supported on your Operating System.");
-        std::process::exit(1);
+        exe_dir.join("app-gui")
     };
-    let spawn = std::process::Command::new(program).args(args).spawn();
+
+    let spawn = std::process::Command::new(&program).args(args).spawn();
     let mut instance = match spawn {
         Ok(instance) => instance,
         Err(e) => {
