@@ -14,24 +14,20 @@ fn main() -> Result<(), Box<dyn Error>> {
     if args.len() > 1 {
         let commands = Commands::parse();
 
-        match commands.cmd {
-            Subcommands::Add(add) => {
-                let res = app_core::equations::add(add.number_a, add.number_b);
-                println!("{}", res);
-            }
-            Subcommands::Subtract(sub) => {
-                let res = app_core::equations::subtract(sub.number_a, sub.number_b);
-                println!("{}", res);
+        let (op, a, b): (fn(f64, f64) -> f64, _, _) = match &commands.cmd {
+            Subcommands::Add(args) => (app_core::equations::add, args.number_a, args.number_b),
+            Subcommands::Subtract(args) => {
+                (app_core::equations::subtract, args.number_a, args.number_b)
             }
             Subcommands::Multiply(args) => {
-                let res = app_core::equations::multiply(args.number_a, args.number_b);
-                println!("{}", res);
+                (app_core::equations::multiply, args.number_a, args.number_b)
             }
             Subcommands::Divide(args) => {
-                let res = app_core::equations::divide(args.number_a, args.number_b);
-                println!("{}", res);
+                (app_core::equations::divide, args.number_a, args.number_b)
             }
-        }
+        };
+
+        println!("{}", op(a, b));
     } else {
         match spawn_gui(args) {
             Ok(run) => run,
